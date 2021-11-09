@@ -29,6 +29,10 @@ export class UsersService {
 
   create(createUserDto: CreateUserDto): string {
     console.log('createUser: ' + createUserDto);
+    let user = this.findOne(createUserDto.id);
+    if(user){
+      return `User #${user.id} already exists!`
+    }
     this.users.push(createUserDto);
     return `User ${createUserDto.id} created`;
   }
@@ -47,7 +51,7 @@ export class UsersService {
 
   update(id: number, updateUserDto: UpdateUserDto): string {
     // Search for user existance by id
-    let user:User = this.users.find(user => user.id == id);
+    let user:User = this.findOne(id);
     console.log('updateUser: id found');
 
     // If not exists
@@ -60,7 +64,7 @@ export class UsersService {
   }
 
   remove(id: number) {
-    let index = this.users.indexOf(this.users.find(user => user.id == id));
+    let index = this.users.indexOf(this.findOne(id));
     
     // TODO handle unexistance
 
