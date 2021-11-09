@@ -1,10 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>
+  ) { }
 
   users = [
     {
@@ -27,51 +34,34 @@ export class UsersService {
     },
   ]
 
-  create(createUserDto: CreateUserDto): string {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     console.log('createUser: ' + createUserDto);
-    let user = this.findOne(createUserDto.id);
-    if(user){
-      return `User #${user.id} already exists!`
-    }
-    this.users.push(createUserDto);
-    return `User ${createUserDto.id} created`;
+    return await this.userRepository.create(createUserDto);
   }
 
-  findAll(): User[] {
+  async findAll(): Promise<User[]> {
     // Return the whole list of users
-    return this.users;
+    return await this.userRepository.find();
   }
 
-  findOne(id: number): User {
+  async findOne(id: number): Promise<User> {
     // Search and return the user by id
-
     // TODO: handle unexistance
-    return this.users.find(user => user.id == id);
+    return await this.userRepository.findOne(id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto): string {
-    // Search for user existance by id
-    let user:User = this.findOne(id);
-    console.log('updateUser: id found');
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<void> {
+    console.log(`This action updated user #${id}`);
+    // TODO: handle unexistance
+    await this.userRepository.update(id, updateUserDto);
+    return
 
-    // If not exists
-    // TODO return 404
-
-    // If exists, update
-    this.users[this.users.indexOf(user)] = updateUserDto;
-
-    return `This action updated user #${id}`;
   }
 
-  remove(id: number) {
-    let index = this.users.indexOf(this.findOne(id));
-    
+  async remove(id: number): Promise<void> {
+    console.log(`Remove: id ${id}`)
     // TODO handle unexistance
-
-    if(index > -1){
-      this.users.splice(index, 1);
-    }
-    
-    return `This action removed user #${id}`;
+    await this.userRepository.delete(id);
+  
   }
 }
