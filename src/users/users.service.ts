@@ -14,7 +14,7 @@ export class UsersService {
   ) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    console.log(createUserDto);
+    console.log(`This action updated user ${createUserDto.name}`);
     return await this.userRepository.save(createUserDto);
   }
 
@@ -38,7 +38,7 @@ export class UsersService {
   }
 
   async remove(id: number): Promise<void> {
-    console.log(`Remove: id ${id}`)
+    console.log(`This action removed user #${id}`)
     // TODO handle unexistance
     await this.userRepository.delete(id);
   
