@@ -15,18 +15,16 @@ services:
     command: npm run start:dev
     networks:
       - nest-users
-    env_file:
-      - .env
 
   db:
     container_name: postgres_users_db
-    image: postgres:latest
+    image: postgres:12
     networks:
       - nest-users
     environment:
       POSTGRES_PASSWORD: root
       POSTGRES_USER: root
-      POSTGRES_DB: users_db
+      POSTGRES_DB: test_db
       PG_DATA: /var/lib/postgresql/data
     ports:
       - 5432:5432
