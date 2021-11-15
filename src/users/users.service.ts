@@ -14,7 +14,7 @@ export class UsersService {
   ) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    console.log(`This action updated user ${createUserDto.name}`);
+    console.log(`This action created user ${createUserDto.name}`);
     return await this.userRepository.save(createUserDto);
   }
 
