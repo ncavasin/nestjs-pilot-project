@@ -1,11 +1,11 @@
 {
     "type": "postgres",
-    "host": "db_container",
+    "host": "postgres_users_db",
     "port": 5432,
     "username": "root",
     "password": "root",
     "database": "test_db",
     "entities": ["dist/**/*.entity{.ts,.js}"],
-    "synchronize": false
+    "synchronize": true
   }
   
