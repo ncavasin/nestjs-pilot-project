@@ -6,7 +6,7 @@ const microserviceOptions = {
   transport: Transport.GRPC,
   options: {
     package: 'users',
-    protoPath: join(process.cwd(), '/src/users/users.proto'),
+    protoPath: join(process.cwd(), '/src/resources/users.proto'),
   },
 };
 
