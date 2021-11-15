@@ -3,7 +3,7 @@ syntax = "proto3";
 package users;
 
 // Expose service
-service UsersService{
+service UsersController{
   // Endpoints
   rpc findById(UserById) returns (User){}
   rpc findByDni(UserByDni) returns (User){}
