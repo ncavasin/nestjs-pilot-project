@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
-  controllers: [UsersController], // Should this one be deleted?
+  controllers: [UsersController],
   providers: [UsersService]
 })
 export class UsersModule {}
